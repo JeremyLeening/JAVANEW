@@ -1,13 +1,17 @@
 public class WorkSchedule {
     public static void main(String[] args) {
         
-        //See Learn the Part for the complete instructions (link in resources folder of Udemy video).  
-
-        int day = 3;   //3rd day of the week...
+        int day = 3;  
         boolean holiday = true;
-         
-        // IF - ELSE IF - ELSE HERE!
-        
+
+        if (holiday) {
+            System.out.println("Holiday!, No work!");
+        } else if (day == 6 || day == 7) {
+            System.out.println("Weekend!, No work!");
+        } else {
+            System.out.println("Weekday!, Work!");
+        }
+
         
         }
 
