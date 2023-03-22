@@ -3,11 +3,17 @@ import java.util.Scanner;
 public class CounterTool {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        System.out.println("I hear you like to count by threes\n");
-        System.out.println("Jimmy: It depends.");
-        System.out.println("Oh, ok...");
+        System.out.print("What increment do you want me to count by?: ");
+        int increment = scan.nextInt();
+        System.out.print("\nWhere do i start?: ");
+        int start = scan.nextInt();
+        System.out.print("\nWhere should i stop?: ");
+        int stop = scan.nextInt();
 
-       // See detailed instructions on Learn the Part.
+        for(int i = start; i <= stop; i+=increment)
+        System.out.print(i+" ");
+
+       
 
         scan.close();
     }
