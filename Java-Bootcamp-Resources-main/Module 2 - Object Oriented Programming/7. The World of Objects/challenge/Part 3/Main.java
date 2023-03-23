@@ -15,7 +15,9 @@ public class Main {
             new Movie("The Lord of the Rings: The Return of the King", "BlueRay", 8.9),
             new Movie("Pulp Fiction", "DVD", 8.8),
             new Movie("The Good, the Bad and the Ugly", "DVD", 8.8),
-            new Movie("The Lord of the Rings: The Fellowship of the Ring", "DVD", 8.8)
+            new Movie("The Lord of the Rings: The Fellowship of the Ring", "DVD", 8.8),
+            new Movie("The Lord of the Rings: The Two Towers", "DVD", 8.8),
+            new Movie("The Lord of the Rings: The Return of the King", "BlueRay", 8.8),
         };
 
         for (int i = 0; i < movies.length; i++) {
@@ -24,13 +26,22 @@ public class Main {
 
         printStore();
         userInput();
-        
+
     }
 
     public static void userInput() {
         Scanner scanner = new Scanner(System.in);
+
         String status = "continue";
         while (status.equals("continue")) {
+            System.out.print("\nPlease choose an integer between 0 - 9: ");
+            int choice = scanner.nextInt();
+            Movie movie = store.getMovie(choice);
+            System.out.print("Set a new rating for " + movie.getName() + ": ");
+            double rating = scanner.nextDouble();
+            movie.setRating(rating);
+            store.setMovie(choice, movie);
+            printStore();
             System.out.print("To edit another rating, type: 'continue': ");
             status = scanner.next();
         }
@@ -40,6 +51,8 @@ public class Main {
     public static void printStore() {
         System.out.println("********************************MOVIE STORE*******************************");
         System.out.println(store);
+        System.out.println("********************************MOVIE STORE*******************************");
+        
     }
 
 }

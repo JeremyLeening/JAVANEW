@@ -5,6 +5,7 @@ public class Main {
     static Store store = new Store();
 
     public static void main(String[] args) {
+        
         Movie[] movies = new Movie[] {
             new Movie("The Shawshank Redemption", "BlueRay", 9.2),
             new Movie("The Godfather", "BlueRay", 9.1),
@@ -18,7 +19,9 @@ public class Main {
             new Movie("The Lord of the Rings: The Fellowship of the Ring", "DVD", 8.8)
         };
 
-        // TODO: Populate Store using a foreach loop. 
+        for (Movie movie : movies) {
+            store.addMovie(movie);
+        }
 
         printStore();
         userInput();

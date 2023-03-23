@@ -38,38 +38,47 @@ public class Main {
     public static int promptForChoice(Scanner scanner) {
         while (true) {
             System.out.print("\nPlease choose an integer between 0 - 9: ");
-
-            // 1. Anticipate the user not entering an integer.
+            if (!scanner.hasNextInt()) {
+                scanner.next();
+                continue;
+            }
 
             int choice = scanner.nextInt();
-
-            // 2. Anticipate the choice being incorrect.
-            return choice;
+            if (incorrectChoice(choice)) continue;
+            else return choice;
         }
     }
 
     public static boolean incorrectChoice(int choice) {
-        // TODO
-        return false;
+        if (choice < 0 || choice > 9) {
+            return true;
+        }
+        else{
+            return false;
     }
+}
 
-    public static double promptForRating(Scanner scanner, String name) {
-        while (true) {
-            System.out.print("\nSet a new rating for " + name + ": ");
-            
-            // 1. Anticipate the user not entering a double.
+public static double promptForRating(Scanner scanner, String name) {
+    while (true) {
+        System.out.print("\nSet a new rating for " + name + ": ");
+        if (!scanner.hasNextDouble()) {
+            scanner.next();
+            continue;
+        } 
 
-            double rating = scanner.nextDouble();
-            
-            // 2. Anticipate the rating being incorrect.
-
-            return rating;
-         }
-    }
+        double rating = scanner.nextDouble();
+        if (incorrectRating(rating)) continue;
+        else return rating;
+     }
+}
 
     public static boolean incorrectRating(double rating) {
-        // TODO
-        return false;
+        if (rating < 0.0 || rating > 10.0) {
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public static void loadMovies(String fileName) throws FileNotFoundException {

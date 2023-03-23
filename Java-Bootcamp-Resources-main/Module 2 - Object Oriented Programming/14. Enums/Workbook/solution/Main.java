@@ -1,4 +1,6 @@
 import static constants.Position.*;
+
+import constants.Position;
 public class Main {
 
     public static void main(String[] args) {
