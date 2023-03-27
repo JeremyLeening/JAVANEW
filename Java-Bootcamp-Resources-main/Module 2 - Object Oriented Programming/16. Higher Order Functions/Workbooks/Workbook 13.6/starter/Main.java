@@ -6,23 +6,32 @@ public class Main {
         List<String> names = Arrays.asList("Alice", "Bob", "Charlie", "Dave");
 
         System.out.println("\n**************************************");
-        // names.stream()
+        names.stream()
+        .map(name -> name = ("Hello, " + name + "!"))
+        .forEach(name -> System.out.println(name));
             
    
         System.out.println("\n**************************************");
         
         List<String> usernames = Arrays.asList("sparklingunicorn", "galactic_goddess", "neon_ninja", "purplepixiedust");
+        
+        String username =  usernames.stream()
+        .filter(name-> name.equals("neon_ninja"))
+        .findFirst()
+        .orElse(null);        
+    
      
-        // String username =  usernames.stream();
-     
-        // System.out.println("Found you: " + username);
+        System.out.println("Found you: " + username);
 
         System.out.println("\n**************************************");
-        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6);
+        List<Integer> numbers = Arrays.asList(1, 2, 3, 4, 5, 6, 8, 12);
 
-        // long numEven = numbers.stream()
+        long numEven = numbers.stream()
+        .filter(num -> (num % 2 == 0))
+        .count();
+
         
-        // System.out.println("There are " + numEven + " even numbers in this list");
+        System.out.println("There are " + numEven + " even numbers in this list");
         
     }   
     

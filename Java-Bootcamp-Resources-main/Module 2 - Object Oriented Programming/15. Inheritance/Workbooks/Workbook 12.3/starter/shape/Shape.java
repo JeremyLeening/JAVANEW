@@ -16,5 +16,9 @@ public abstract class Shape {
         this.radius = radius;
     }
 
+    public abstract double getArea();
+
+    public abstract double getVolume();
+
 
 }

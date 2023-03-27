@@ -2,7 +2,11 @@ package shape;
 
 public class Shape {    
 
-    private double radius;   
+    private double radius;
+    
+    public Shape(double radius) {
+        this.radius = radius;
+    }
 
     public double getRadius() {
         return this.radius;

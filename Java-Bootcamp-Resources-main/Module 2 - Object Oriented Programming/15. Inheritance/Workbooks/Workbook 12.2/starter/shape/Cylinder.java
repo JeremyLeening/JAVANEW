@@ -4,6 +4,11 @@ public class Cylinder extends Shape {
 
     private double height;
 
+    public Cylinder(double height, double radius) {
+        super(radius);
+        this.height = height;
+    }
+
     public double getHeight() {
         return this.height;
     }
