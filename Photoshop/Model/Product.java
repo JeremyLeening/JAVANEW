@@ -1,18 +1,22 @@
 package Model;
 
 public class Product {
-    
+    //Class to represent a product   
     private int productId;
     private String productName;
     private double productPrice;
-    private double workingHours;
+    private String workingHours;
 
-    public Product(int productId, String productName, double productPrice, double workingHours){
+    public Product(int productId, String productName, double productPrice, String workingHours){
         this.productId = productId;
         this.productName = productName;
         this.productPrice = productPrice;
         this.workingHours = workingHours;
 
+    }
+
+    public String getAll(){
+        return this.productId + ": " + this.productName + " " + this.productPrice + " " + this.workingHours;
     }
 
     public int getProductId() {
@@ -39,11 +43,11 @@ public class Product {
         this.productPrice = productPrice;
     }
 
-    public double getWorkingHours() {
+    public String getWorkingHours() {
         return this.workingHours;
     }
 
-    public void setWorkingHours(double workingHours) {
+    public void setWorkingHours(String workingHours) {
         this.workingHours = workingHours;
     }
 

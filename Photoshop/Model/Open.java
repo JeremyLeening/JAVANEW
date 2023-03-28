@@ -1,19 +1,22 @@
 package Model;
 
-import java.util.Date;
 
-public class Opentime {
-    
+public class Open {
+    //Class to represent the opening time for a certain day
     private int dayId; 
     private String dayName;
-    private Date openingTime;  
-    private Date closingTime;
+    private String openingTime;  
+    private String closingTime;
     
-    public Opentime(int dayId, String dayName, Date openingTime, Date closingTime){
+    public Open(int dayId, String dayName, String openingTime, String closingTime){
         this.dayId = dayId;
         this.dayName = dayName;
         this.openingTime = openingTime;
         this.closingTime = closingTime;
+    }
+
+    public String getAll(){
+        return this.dayId + ": " + this.dayName + " " + this.openingTime + " - " + this.closingTime;
     }
 
     public int getDayId() {
@@ -32,19 +35,19 @@ public class Opentime {
         this.dayName = dayName;
     }
 
-    public Date getOpeningTime() {
+    public String getOpeningTime() {
         return this.openingTime;
     }
 
-    public void setOpeningTime(Date openingTime) {
+    public void setOpeningTime(String openingTime) {
         this.openingTime = openingTime;
     }
 
-    public Date getClosingTime() {
+    public String getClosingTime() {
         return this.closingTime;
     }
 
-    public void setClosingTime(Date closingTime) {
+    public void setClosingTime(String closingTime) {
         this.closingTime = closingTime;
     }
 
