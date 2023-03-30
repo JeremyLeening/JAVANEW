@@ -13,6 +13,7 @@ public class CSVFileReader {
    }
 
    public void read() {
+      //Function that reads a CSV file
       try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
          String line;
          while ((line = br.readLine()) != null) {
@@ -26,6 +27,7 @@ public class CSVFileReader {
    }
 
    public ArrayList<String> toArray() {
+      //Function that reads a CSV file and returns an ArrayList filled with lines from the file
       ArrayList<String> array = new ArrayList<String>();
       try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
          String line;

@@ -18,7 +18,11 @@ public class StoreProducts{
             int productId = Integer.parseInt(data[0]);
             String productName = data[1];
             double productPrice = Double.parseDouble(data[2]);
-            String workingHours = data[3];
+            String workingHoursString = data[3];
+            String[] parts = workingHoursString.split(":");
+            String hours = parts[0]; 
+            String minutes = parts[1];
+            Double workingHours = Double.parseDouble(hours) + (Double.parseDouble(minutes)/60);
             productArray.add(new Product(productId, productName, productPrice, workingHours));
             }
         return productArray;
