@@ -1,14 +1,11 @@
 package Controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
-import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -24,34 +21,42 @@ public class Options{
     //Class that manages the options menu items
 
     //Creating a JSONObject object
-    
     JSONObject JSONObject = new JSONObject();
+    //Creating a JSONObject to store the customer object contents
     JSONObject customerObject = new JSONObject();
+    //Creating a JSONObject to store the basket contents
     JSONObject basketObject = new JSONObject();
 
     //Creating a empty customer object
     Customer customer = new Customer(null, null, null, null, null, null);
-    
+    //Creating a scanner object
     Scanner scan = new Scanner(System.in);
     //Creating a basket object
     Basket basket = new Basket();
-    //This is where the choices are made
+    //Creating a store products object
+    StoreProducts storeProducts = new StoreProducts();
+    //Filling a ArrayList with products from the CSV file
+    ArrayList<Product> productArray = storeProducts.populateStore("_resources/PhotoShop_PriceList.csv");
+    
+    //This is where the choices are used
     public void choice(String choice){
         switch (choice){
             case "options":
+            //This shows the options menu
                 System.out.println("Your options are as follows:");
                 System.out.println("-options\n-products\n-order\n-opening times\n-show\n-total price\n-total work hours\n-pick up time\n-checkout\n-save\n-load\n-exit");
                 break;
             case "products":
+            //This shows the available products
                 System.out.println("We have the following products:");
-                StoreProducts storeProducts = new StoreProducts();
-                ArrayList<Product> productArray = storeProducts.populateStore("_resources/PhotoShop_PriceList.csv");
+                
                 
                 for(int i = 0; i < productArray.size(); i++){
                     System.out.println(productArray.get(i).getAll());
                 }
                 break;
             case "opening times":
+            //This shows the available opening times
                 System.out.println("We have the following opening times:");
                 StoreTime storeTime = new StoreTime();
                 ArrayList<Open> openArray = storeTime.populateStore("_resources/PhotoShop_OpeningHours.csv");
@@ -61,30 +66,36 @@ public class Options{
                 }
                 break;
             case "order":
+            //Here you are prompted to enter a order
                 while(choice.equals("order")){
                 System.out.println("What would you like to order?");
                 System.out.print("Please provide the product ID: ");
+                //It takes in the product ID
                 int productId = scan.nextInt();
-                
-                while (productId < 0 || productId > 13){
+                //Checks if the product ID is valid
+                while (productId < 0 || productId > productArray.size()){
                     System.out.print("Please provide a valid product ID: ");
                     productId = scan.nextInt();
                 }
                 System.out.print("Please provide the quantity: ");
+                //It takes in the quantity
                 int quantity = scan.nextInt();
+                //Checks if the quantity is valid
                 while (quantity < 0){
                     System.out.print("Please provide a valid quantity: ");
                     quantity = scan.nextInt();
                 }
+                //Add the order to the basket
                 basket.addToBasket(productId, quantity);
                 scan.nextLine();
-
+                //Check if the user wants to order more
                 System.out.print("If you would like to continue, type 'order' else 'exit': ");
                 String choiceContinue = scan.nextLine();
                 if(choiceContinue.equals("exit")){
                     choice = choiceContinue;
                     break;
                 }
+                //Checks if the input was valid
                 while (!choiceContinue.equals("order")){
                     System.out.print("Please type order or exit: ");
                     choiceContinue = scan.nextLine();
@@ -96,19 +107,24 @@ public class Options{
                 }
                 break;
             case "show":
+            //This shows the basket contents
                 System.out.println("We are going to show your order!");
                 basket.showBasket();
                 break;
             case "total price":
+            //This shows the total price of orders in the basket
                 System.out.println("Your price total comes to: "+ basket.totalPrice());
                 break;
             case "total work hours":
+            //This shows the total work hours of orders in the basket
                 System.out.println("Your total work hours comes to: "+ basket.totalWorkHours());
                 break;
             case "pick up time":
+            //This shows the pick up time of the tota order
                 System.out.println("Your order will be ready to pick up on: "+ basket.pickupTime());
                 break;
             case "checkout":
+            //This prompts the user to enter his details
                 System.out.println("We are going to checkout your order!");
                 System.out.print("Please provide your credentials ");
                 System.out.print("Name: ");
@@ -129,12 +145,11 @@ public class Options{
                 customer.setCity(city);
                 customer.setEmail(email);
                 customer.setPhone(phone); 
-                
-                
-                
-                            
                 break;
             case "save":
+            //This is used to save the basket and customer to a JSON file
+                System.out.println("How would you like to name your file?: ");
+                String saveFileName = scan.nextLine();
                 customerObject.put("name", customer.getName());
                 customerObject.put("address", customer.getAddress());
                 customerObject.put("postalcode", customer.getPostalCode());
@@ -144,16 +159,15 @@ public class Options{
 
                 JSONObject.put("customer", customerObject);
 
-                //System.out.println(Arrays.deepToString(basket.getBasket()));
                 String [][] basketArray = basket.getBasket();
                 for(int i = 0; i < basket.getBasket().length; i++) {
                     basketObject.put(i,basketArray[i][0]+";"+basketArray[i][0]);
                 }
                 JSONObject.put("basket", basketObject);
-                //JSONObject.put("basket", Arrays.deepToString(basket.getBasket()));
+                
 
                 try {
-                    FileWriter file = new FileWriter("_jsonFiles/output.json");
+                    FileWriter file = new FileWriter("_jsonFiles/"+ saveFileName +".json");
                     file.write(JSONObject.toString());
                     file.close();
                 } catch (IOException e) {
@@ -162,9 +176,12 @@ public class Options{
                 System.out.println("JSON file created: "+JSONObject);
                 break;
             case "load":
+            //This is used to load the basket and customer from a JSON file
+                System.out.println("Which file do you wish to load?: ");
+                String loadFileName = scan.nextLine();
                 JSONParser jsonParser = new JSONParser();
             
-                try (FileReader reader = new FileReader("_jsonFiles/output.json"))
+                try (FileReader reader = new FileReader("_jsonFiles/"+ loadFileName +".json"))
                 {
                     //Read JSON file
                     Object obj = jsonParser.parse(reader);
@@ -194,8 +211,6 @@ public class Options{
                         String id = parts[0]; 
                         String quantity = parts[1];
                         basket.addToBasket(Integer.parseInt(id), Integer.parseInt(quantity));
-                        
-                        //basket.addToBasket(Integer.parseInt(basketTemp.get(i).split(";")[0]), Integer.parseInt(basketTemp.get(i).toString().split(";")[1]));
                     }
 
                                      

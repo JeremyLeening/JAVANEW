@@ -2,6 +2,7 @@ package Model;
 
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
@@ -49,15 +50,54 @@ public class Basket {
     }
     // Function to return the time at wich the order will be ready
     public String pickupTime(){
-        
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");  
+        //Empty String Object to store the time at which the order will be ready
+        String pickupTime = "";
+        //LocalDateTime Object to store the system time 
         LocalDateTime now = LocalDateTime.now();
-        LocalDateTime pickup = now.plusHours(Double.valueOf(totalWorkHours()).longValue());  
-          
-        String pickupTime = dtf.format(pickup);
+        //LocalDateTime Object to store the time at which the order will be ready 
+        LocalDateTime pickup = now.plusHours(Double.valueOf(totalWorkHours()).longValue()); 
+        //LocalTime Object to store the time at which the order will be ready 
+        LocalTime target = pickup.toLocalTime();
+        //DateTimeFormatter Object to format the data
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss"); 
+        //Integer to store the index of the proposedPickUpDay
+        int i = 0;   
+        //String Object to store the day to check against
+        String checkDay = openArray.get(i).getDayName().toLowerCase();
+        //String Object to store the proposedPickUpDay
+        String proposedPickUpDay = (pickup.getDayOfWeek().toString().toLowerCase());
+        while(!checkDay.equals(proposedPickUpDay)){
+            i++;
+            checkDay = openArray.get(i).getDayName().toLowerCase();
+        }
+
+        while(true){ 
+            //System.out.println(target);
+            LocalTime start = LocalTime.parse(openArray.get(i).getOpeningTime());
+            LocalTime stop = LocalTime.parse(openArray.get(i).getClosingTime());
+            Boolean check = (target.isAfter(start) && target.isBefore(stop));
+            if(check){
+                pickupTime = dtf.format(target);//doesnt return the updated time
+                break;
+            }
+            
+            else{
+                if(i==0){
+                    i = 1;
+                }
+                if(i==6){
+                    i = 1;
+                }
+                String[] parts = openArray.get(i).getOpeningTime().split(":");
+                    String hours = parts[0]; 
+                    String minutes = parts[1];
+                target = (pickup.with(LocalTime.of(Integer.parseInt(hours), Integer.parseInt(minutes+1)))).toLocalTime();
+                //target = pickup.plusHours(1);
+            } 
         
+        }
+        return pickupTime;  
         
-        return pickupTime;
     }
     //Function to return the price of a product by quantity
     public Double itemPrice(int item, int quantity){
@@ -93,7 +133,6 @@ public class Basket {
             for (int j = 0; j < 2; j++) {
                 if(j==0){
                 basket[i][j] = String.valueOf(productBasket.get(i).get(0));
-                //productArray.get((productBasket.get(i).get(0)-1)).getProductName();
                 }
                 if(j==1){
                 basket[i][j] = String.valueOf(productBasket.get(i).get(1));
