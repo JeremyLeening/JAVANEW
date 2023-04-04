@@ -1,6 +1,8 @@
 package Model;
 
 
+import java.io.BufferedWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -30,12 +32,23 @@ public class Basket {
         productBasket.add(order);
 
     }
+
+    //Function to remove a product from the basket
+    public void removeFromBasket(int orderId) {
+        System.out.println("Order: "+ orderId + " with product ID: " + productBasket.get(orderId).get(0) + 
+                           " and a quantitiy of: "+ productBasket.get(orderId).get(1) + " was removed from your order.");
+        productBasket.remove(orderId);
+        
+    }
+    
     //Function to show the basket
     public void showBasket(){
         for (int i = 0; i < productBasket.size(); i++) {
             for (int j = 0; j < productBasket.get(i).size(); j++) {
                 if(j==0){
-                    System.out.print("ID: ");
+                    System.out.print("Order ID: ");
+                    System.out.print(i + " ");
+                    System.out.print("Product ID: ");
                     System.out.print(productBasket.get(i).get(j) + " ");
                 }
                 if(j==1){
@@ -44,8 +57,28 @@ public class Basket {
                 }            
             }
             System.out.print(" Price: ");
-            System.out.print(itemPrice(productBasket.get(i).get(0),productBasket.get(i).get(1)) + " ");
+            System.out.print(String.format("%.2f", (itemPrice(productBasket.get(i).get(0),productBasket.get(i).get(1)))) + " ");
             System.out.println();
+        }
+    }
+    //Function to write the basket to a file
+    public void writeBasket(BufferedWriter bw) throws IOException{
+        for (int i = 0; i < productBasket.size(); i++) {
+            for (int j = 0; j < productBasket.get(i).size(); j++) {
+                if(j==0){
+                    bw.write("Order ID: ");
+                    bw.write(i + " ");
+                    bw.write("Product ID: ");
+                    bw.write(productBasket.get(i).get(j) + " ");
+                }
+                if(j==1){
+                    bw.write(" Quantity: ");
+                    bw.write(productBasket.get(i).get(j) + " ");
+                }            
+            }
+            bw.write(" Price: ");
+            bw.write(itemPrice(productBasket.get(i).get(0),productBasket.get(i).get(1)) + " ");
+            bw.write("\n");
         }
     }
     // Function to return the time at wich the order will be ready
@@ -72,12 +105,11 @@ public class Basket {
         }
 
         while(true){ 
-            //System.out.println(target);
             LocalTime start = LocalTime.parse(openArray.get(i).getOpeningTime());
             LocalTime stop = LocalTime.parse(openArray.get(i).getClosingTime());
             Boolean check = (target.isAfter(start) && target.isBefore(stop));
             if(check){
-                pickupTime = dtf.format(target);//doesnt return the updated time
+                pickupTime = dtf.format(pickup);
                 break;
             }
             
@@ -91,14 +123,19 @@ public class Basket {
                 String[] parts = openArray.get(i).getOpeningTime().split(":");
                     String hours = parts[0]; 
                     String minutes = parts[1];
-                target = (pickup.with(LocalTime.of(Integer.parseInt(hours), Integer.parseInt(minutes+1)))).toLocalTime();
-                //target = pickup.plusHours(1);
+                target = (pickup.plusDays(1).with(LocalTime.of(Integer.parseInt(hours), Integer.parseInt(minutes+1)))).toLocalTime();
+                pickup = pickup.plusDays(1).with(LocalTime.of(Integer.parseInt(hours), Integer.parseInt(minutes)));
             } 
         
         }
         return pickupTime;  
         
     }
+    //Function to write the pickup time to a file
+    public void writePickupTime(BufferedWriter bw) throws IOException{
+        bw.write(pickupTime());
+    }
+
     //Function to return the price of a product by quantity
     public Double itemPrice(int item, int quantity){
         
@@ -115,6 +152,11 @@ public class Basket {
         }
         return totalPrice;
     }
+    //Function to write the total price to a file
+    public void writeTotalPrice(BufferedWriter bw) throws IOException{
+        bw.write(totalPrice().toString());
+    }
+
     //Function to return the total work hours of the basket
     public Double totalWorkHours(){
         Double totalHours = 0.0;
@@ -125,6 +167,10 @@ public class Basket {
         }
         return totalHours;
     }
+    //Function to write the total work hours to a file
+    public void writeTotalWorkHours(BufferedWriter bw) throws IOException{
+    bw.write(totalWorkHours().toString());
+}    
     //Function to return the basket as a 2d array
     public String[][] getBasket(){
         String[][] basket = new String[productBasket.size()][2];

@@ -1,0 +1,17 @@
+Invoice Number: 1
+
+Customer:
+null
+null
+null
+null
+null
+null
+
+Your order will take 0.0 hours to complete
+
+You can pick your order up on: 2023/04/04 14:43:14
+
+Order Details:
+
+Your total price comes out to:                 0.0

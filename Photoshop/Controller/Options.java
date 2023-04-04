@@ -12,6 +12,7 @@ import org.json.simple.parser.ParseException;
 
 import Model.Basket;
 import Model.Customer;
+import Model.Invoice;
 import Model.Open;
 import Model.Product;
 import Model.StoreProducts;
@@ -42,21 +43,32 @@ public class Options{
     public void choice(String choice){
         switch (choice){
             case "options":
-            //This shows the options menu
-                System.out.println("Your options are as follows:");
-                System.out.println("-options\n-products\n-order\n-opening times\n-show\n-total price\n-total work hours\n-pick up time\n-checkout\n-save\n-load\n-exit");
+            //This prints the options menu
+                System.out.println("Your options are as follows:\n");
+                System.out.println("-options -> view the options"+
+                                    "\n-products -> view the products"+
+                                    "\n-order -> open the order menu"+
+                                    "\n-remove -> remove a order from the total order"+
+                                    "\n-opening times -> view the opening times"+
+                                    "\n-show -> display the placed orders"+
+                                    "\n-total price -> show the total price"+
+                                    "\n-total work hours -> show the total time the total order will take"+
+                                    "\n-pick up time -> show the time the total order will be ready"+
+                                    "\n-checkout -> to enter customer data"+
+                                    "\n-save -> to save your entered data"+
+                                    "\n-load -> to load previously saved data"+
+                                    "\n-invoice -> to create a invoice based on entered data"+
+                                    "\n-exit -> to leave the store");
                 break;
             case "products":
-            //This shows the available products
+            //This prints the available products
                 System.out.println("We have the following products:");
-                
-                
                 for(int i = 0; i < productArray.size(); i++){
                     System.out.println(productArray.get(i).getAll());
                 }
                 break;
             case "opening times":
-            //This shows the available opening times
+            //This prints the available opening times
                 System.out.println("We have the following opening times:");
                 StoreTime storeTime = new StoreTime();
                 ArrayList<Open> openArray = storeTime.populateStore("_resources/PhotoShop_OpeningHours.csv");
@@ -68,23 +80,37 @@ public class Options{
             case "order":
             //Here you are prompted to enter a order
                 while(choice.equals("order")){
-                System.out.println("What would you like to order?");
-                System.out.print("Please provide the product ID: ");
-                //It takes in the product ID
-                int productId = scan.nextInt();
-                //Checks if the product ID is valid
-                while (productId < 0 || productId > productArray.size()){
-                    System.out.print("Please provide a valid product ID: ");
+                    System.out.println("What would you like to order?");
+                    System.out.print("Please provide the product ID: ");
+                    int productId = 0;
+                    while (!scan.hasNextInt()) {
+                        System.out.print("Please provide a valid product ID: ");
+                        scan.next(); // discard invalid input
+                    }
                     productId = scan.nextInt();
-                }
-                System.out.print("Please provide the quantity: ");
-                //It takes in the quantity
-                int quantity = scan.nextInt();
-                //Checks if the quantity is valid
-                while (quantity < 0){
-                    System.out.print("Please provide a valid quantity: ");
+                    while (productId < 0 || productId > productArray.size()){
+                        System.out.print("Please provide a valid product ID: ");
+                        while (!scan.hasNextInt()) {
+                            System.out.print("Please provide a valid product ID: ");
+                            scan.next();
+                        }
+                        productId = scan.nextInt();
+                    }
+                    System.out.print("Please provide the quantity: ");
+                    int quantity = 0;
+                    while (!scan.hasNextInt()) {
+                        System.out.print("Please provide a valid quantity: ");
+                        scan.next(); 
+                    }
                     quantity = scan.nextInt();
-                }
+                    while (quantity < 0){
+                        System.out.print("Please provide a valid quantity: ");
+                        while (!scan.hasNextInt()) {
+                            System.out.print("Please provide a valid quantity: ");
+                            scan.next(); 
+                        }
+                        quantity = scan.nextInt();
+                    }
                 //Add the order to the basket
                 basket.addToBasket(productId, quantity);
                 scan.nextLine();
@@ -105,6 +131,11 @@ public class Options{
                     }
                 }
                 }
+                break;
+            case "remove":
+                System.out.print("Which order would you like to remove? ");
+                int orderID = scan.nextInt();
+                basket.removeFromBasket(orderID);
                 break;
             case "show":
             //This shows the basket contents
@@ -212,6 +243,7 @@ public class Options{
                         String quantity = parts[1];
                         basket.addToBasket(Integer.parseInt(id), Integer.parseInt(quantity));
                     }
+                    System.out.println("Your file was successfully loaded!");
 
                                      
         
@@ -222,6 +254,12 @@ public class Options{
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+                break;
+            case "invoice":
+                System.out.print("Please provide invoice number: ");
+                String invoiceNumber = scan.nextLine();
+                Invoice invoice = new Invoice(invoiceNumber, customer.name, customer.address, customer.city, customer.postalCode, customer.phone, customer.email, basket);
+                invoice.generateInvoiceFile();
                 break;
             default: 
                 System.out.println("That is not a valid option");

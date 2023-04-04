@@ -8,16 +8,19 @@ public static void main(String[] args) {
     Options option = new Options();
     //Creating a Scanner object to read user input
     Scanner scan = new Scanner(System.in);
-
+    System.out.println("================================================================\n");
     System.out.println("Welcome to the Photoshop store!");
     System.out.println("Type options for options: ");
+    
     //While loop to stay in the Photostore
     while(true){
+    System.out.println("\n================================================================\n");
     System.out.print("What would you like to do?: ");
     String choice = scan.nextLine();
     if(choice.equals("exit")){
         break;
     }
+    System.out.println("\n================================================================\n");
     option.choice(choice);
      
 }

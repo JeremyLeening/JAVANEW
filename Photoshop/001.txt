@@ -1,0 +1,20 @@
+Invoice Number: 001
+
+Customer:
+Jeremy Leening
+straatstraat 199
+1123 HK
+Amsterdam
+jeremy@calco.nl
+06-42342342
+
+Your order will take 15.0 hours to complete
+
+You can pick your order up on: 2023/04/06 09:00:00
+
+Order Details:
+Order ID: 0 Product ID: 1  Quantity: 1  Price: 1.4 
+Order ID: 1 Product ID: 4  Quantity: 4  Price: 20.0 
+Order ID: 2 Product ID: 3  Quantity: 3  Price: 13.5 
+
+Your total price comes out to:                 34.9

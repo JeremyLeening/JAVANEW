@@ -1,9 +1,9 @@
 //The user needs to input either the id or name of the item to put it in the order.
 //The user needs to be able to add multiple items to the order.
-The user needs to be able to create an invoice.
-On the invoice the total cost of the entire order needs to be shown.
-On the invoice the completion time needs to be shown.
-The date and time of pickup needs to be within the opening hours of the store.
+//The user needs to be able to create an invoice.
+//On the invoice the total cost of the entire order needs to be shown.
+//On the invoice the completion time needs to be shown.
+//The date and time of pickup needs to be within the opening hours of the store.
 //The shopping cart needs to be saved to either XML or Json.
 //Use the CSV files for the opening hours and the price list.
-The program needs to be made completely in the command log.
+//The program needs to be made completely in the command log.
