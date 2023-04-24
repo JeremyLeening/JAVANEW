@@ -1,0 +1,49 @@
+<html>
+    <head> 
+        <link th:href="@{/info-stylesheet.css}" rel="stylesheet"> 
+    </head>    
+    <body>
+    
+        <div class="topnav">
+            <a th:href="@{/}" >Form</a>
+            <a class="active" th:href="@{/info}">Info</a>
+            <a th:href="@{/basket}">Basket</a>
+            <a th:href="@{/customer}">Customer</a>
+            <a th:href="@{/employee}">Employee</a>
+        </div>
+
+        <div class="acontainer">
+         <table>
+            <p>Number of products: <span th:text="${#lists.size(products)}"></span></p>
+              <tr class="head">
+                 <th>ID</th>
+                 <th>Product Name</th>
+                 <th>Price</th>
+                 <th>Work Hours</th>
+              </tr>
+              <tr th:each="product: ${products}">
+                 <td th:text="${product.productId}">productId</td>
+                 <td th:text="${product.productName}">productName</td>
+                 <td th:text="${#numbers.formatCurrency(product.productPrice)}">productPrice</td>
+                 <td th:text="${product.workingHours}">workingHours</td>
+              </tr>
+         </table>
+        </div>
+        <div class="bcontainer">
+         <table>
+            <tr class="head">
+               <th>Day</th>
+               <th>Opening Time</th>
+               <th>Closing Time</th>
+            </tr>
+            <tr th:each="open: ${openingdays}">
+               <td th:text="${open.dayName}">Day</td>
+               <td th:text="${open.openingTime}">Opening Time</td>
+               <td th:text="${open.closingTime}">Closing Time</td>
+            </tr>
+
+        </table>
+        
+     </div>
+   </body>
+</html>

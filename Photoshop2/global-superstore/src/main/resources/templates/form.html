@@ -1,0 +1,30 @@
+<html>
+    <head> 
+        <link th:href="@{/form-stylesheet.css}" rel="stylesheet"> 
+    </head>    
+    <body>
+        <div class="topnav">
+            <a class="active" th:href="@{/}" >Form</a>
+            <a th:href="@{/info}">Info</a>
+            <a th:href="@{/basket}">Basket</a>
+            <a th:href="@{/customer}">Customer</a>
+            <a th:href="@{/employee}">Employee</a>
+        </div>
+        <div class="container">    
+            <h2> The Photoshop </h2>
+            <form method="post" th:object="${item}" th:action="@{/subitem}">
+                <label for="product">Product:</label>
+                <select id="product" name="product" required>
+                    <option style="color:blue" value="">Choose Category</option>
+                    <option th:each="product : ${products}" th:value="${product.productId}" th:text="${product.productName}"></option>
+                </select>
+                <br>
+                <label for="quantity">Quantity:</label>
+                <input type="number" placeholder="quantity" th:field="*{quantity}" required>
+                <br>
+                <input type="submit" value="Submit Item">
+            </form>
+        </div>
+       
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<html>
+    <head> 
+        <link th:href="@{/customer-stylesheet.css}" rel="stylesheet"> 
+    </head>    
+    <body>
+        <div class="topnav">
+            <a th:href="@{/}">Form</a>
+            <a th:href="@{/info}">Info</a>
+            <a th:href="@{/basket}">Basket</a>
+            <a a class="active" th:href="@{/customer}" >Customer</a>
+            <a th:href="@{/employee}">Employee</a>
+        </div>
+        <div class="container">    
+            <h3> Enter customer data: </h3>
+            <form method="post" th:object="${customer}" th:action="@{/subcustomer}">
+                <input type="text" placeholder="Name" th:field="*{name}" required>
+                <input type="text" placeholder="Address" th:field="*{address}"required>
+                <input type="text" placeholder="Postalcode" th:field="*{postalCode}"required>
+                <input type="text" placeholder="City" th:field="*{city}"required>
+                <input type="email" placeholder="Email" th:field="*{email}"required>
+                <input type="number" placeholder="Phone number" th:field="*{phone}"required>
+                
+                <input type="submit" value="Submit Item">
+            </form>
+        </div>
+    </body>
+</html>

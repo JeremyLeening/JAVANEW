@@ -1,0 +1,16 @@
+The requirements for the next stage of developing Photoshop's application are:
+
+The user needs to input customer data.
+Name, Address, Postal code, City, Phone number, E-Mail
+The user needs to input employee data.
+Name, Employee number
+Whenever the user forgets to input a value or fills in a wrong type of value, the program needs to give a proper notification.
+The user wants to see the opening hours of the store.
+The user wants to select multiple products from a drop-down menu and choose how many of a particular item needs to be added to the order.
+The user wants to have an oversight of all selected products and have the ability to edit the amounts or remove the products altogether.
+The user wants to see when the order can be completed.
+An extra challenge is to make sure that two different orders can’t be carried out at the same time.
+The orders need to be saved to a database.
+The products and opening hours need to be added to the database. You will use the same data files as in the previous assignment.
+The user needs to be able to create an invoice as a .pdf file type.
+The application needs to be web-based. (This means that you have to use the knowledge gained from the Udemy course, there is no need to put it online 😁)

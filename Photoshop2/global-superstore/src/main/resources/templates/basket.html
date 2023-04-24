@@ -1,0 +1,93 @@
+<html>
+    <head> 
+        <link th:href="@{/basket-stylesheet.css}" rel="stylesheet"> 
+    </head>    
+    <body>
+    
+        <div class="topnav">
+            <a th:href="@{/}">Form</a>           
+            <a th:href="@{/info}">Info</a>
+            <a class="active" th:href="@{/basket}">Basket</a>
+            <a th:href="@{/customer}">Customer</a>
+            <a th:href="@{/employee}">Employee</a>
+        </div>
+        <div class="container">
+           <table>
+              <tr class="head">
+                 <th>ID</th>
+                 <th>Product Name</th>
+                 <th>Price</th>
+                 <th>workingHours</th>
+                 <th>Amount</th>
+                 <th>Total</th>
+                 <th>Action</th>
+              </tr>
+              <tr th:each="item, i: ${items}">
+                 <td th:text="${products[item.product-1].productId}">ID</td>
+                 <td th:text="${products[item.product-1].productName}">Product Name</td>
+                 <td th:text="${#numbers.formatCurrency(products[item.product-1].productPrice)}">Price</td>
+                 <td th:text="${products[item.product-1].workingHours*item.quantity}">workingHours</td>
+                 <td th:text="${item.quantity}">Amount</td>
+                 <td th:text="${#numbers.formatCurrency(products[item.product-1].productPrice*item.quantity)}">Total</td>
+                 <td>
+                    <a role="button" style="color:white; background-color: #263238" class="table-button" th:href="@{/delete(index = ${i.index})}">Delete</a>
+                 </td>
+              </tr>
+              <tr>
+               <td>Pick up time</td>
+               <td></td>
+               <td></td>
+              
+              <td></td>
+              <td></td>
+              <td></td>
+              <td th:text="${pickuptime}"></td>
+              
+              </tr> 
+              <tr>
+               <td>Totals</td>
+               <td></td>
+               <td></td>
+              
+              <td th:text="${totalhours}"></td>
+              <td></td>
+              <td th:text="${#numbers.formatCurrency(totalprice)}"></td>
+              <td></td>
+              </tr> 
+           </table>
+        </div>
+        <div class="acontainer" >
+         <table>
+            <tr class="head">
+               <th>Name</th>
+               <th>Address</th>
+               <th>Postal Code</th>
+               <th>City</th>
+               <th>Email</th>
+               <th>Phone number</th>
+            </tr>
+            <tr th:each="customer: ${customers}">
+               <td th:text="${customer.name}"></td>
+               <td th:text="${customer.address}"></td>
+               <td th:text="${customer.postalCode}"></td>
+               <td th:text="${customer.city}"></td>
+               <td th:text="${customer.email}"></td>
+               <td th:text="${customer.phone}"></td>
+            </tr>
+         </table>
+         <div class="bcontainer" >
+            <table>
+               <tr class="head">
+                  <th>Employee name</th>
+                  <th>Employee number</th>
+               </tr>
+                  <tr th:each="employee: ${employees}">
+                     <td th:text="${employee.name}"></td>
+                     <td th:text="${employee.number}"></td>
+               </tr>
+            </table>
+         
+         </div>
+      
+   </body>
+</html>

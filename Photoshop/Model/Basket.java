@@ -102,6 +102,7 @@ public class Basket {
         while(!checkDay.equals(proposedPickUpDay)){
             i++;
             checkDay = openArray.get(i).getDayName().toLowerCase();
+            
         }
 
         while(true){ 
