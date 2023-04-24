@@ -1,0 +1,22 @@
+Invoice Number: 004
+
+Customer:
+null
+null
+null
+null
+null
+null
+
+Your order will take 95.0 hours to complete
+
+You can pick your order up on: 2023/04/28 11:15:04
+
+Order Details:
+Order ID: 0 Product ID: 1  Quantity: 10  Price: 14.0 
+Order ID: 1 Product ID: 2  Quantity: 10  Price: 15.0 
+Order ID: 2 Product ID: 1  Quantity: 15  Price: 21.0 
+Order ID: 3 Product ID: 1  Quantity: 20  Price: 28.0 
+Order ID: 4 Product ID: 1  Quantity: 40  Price: 56.0 
+
+Your total price comes out to:                 134.0
