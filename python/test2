@@ -1,0 +1,22 @@
+import math
+
+def halve_string(input_string):
+    length = (len(input_string)/2)
+    first_half=math.ceil(length)
+    second_half=math.floor(length)
+    list=[]
+    list[:0]=input_string
+    list1=list[0:first_half]
+    list2=list[first_half:]
+    list1final=''.join(list1)
+    list2final=''.join(list2)
+    return (list1final,list2final)
+
+def halveb_string(string_list):
+    list=[]
+    for element in string_list:
+        list.append(halve_string(element))
+    return list
+
+string_list = ['Mark', 'Lydia']
+print(halveb_string(string_list))
